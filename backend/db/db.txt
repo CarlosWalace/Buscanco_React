@@ -1,0 +1,52 @@
+-- Usuário
+CREATE TABLE Usuario (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Nome VARCHAR(255) NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Senha VARCHAR(255) NOT NULL,
+  Endereco VARCHAR(255),
+  Telefone VARCHAR(20)
+);
+
+-- Ônibus
+CREATE TABLE onibus (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Numero VARCHAR(20) NOT NULL,
+  Nome VARCHAR(255) NOT NULL,
+  LocalizacaoAtual VARCHAR(255),
+  VelocidadeAtual FLOAT,
+  CapacidadeMaxima INT,
+  Motorista VARCHAR(255),
+  RotaAtual VARCHAR(255),
+  HistoricoRotas TEXT
+);
+
+-- Linha
+CREATE TABLE linha (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  IDOnibus INT NOT NULL,
+  IDParada INT NOT NULL,
+  OrdemParada INT NOT NULL,
+  Tipo VARCHAR(20) NOT NULL,
+  FOREIGN KEY (IDOnibus) REFERENCES Onibus(ID),
+  FOREIGN KEY (IDParada) REFERENCES Parada(ID)
+);
+
+-- Parada
+CREATE TABLE parada (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Endereco VARCHAR(255),
+  Latitude FLOAT,
+  Longitude FLOAT,
+  HorarioChegadaEstimado DATETIME,
+  HorarioPartidaEstimado DATETIME
+);
+
+-- Chat
+CREATE TABLE chat (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Mensagem TEXT,
+  Remetente VARCHAR(255) NOT NULL,
+  Destinatario VARCHAR(255) NOT NULL,
+  DataHora DATETIME
+);
