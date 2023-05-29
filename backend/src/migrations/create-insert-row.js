@@ -69,4 +69,4 @@ db.serialize(() => {
     }
   });
 });
-db.close();
+db.close(); 
