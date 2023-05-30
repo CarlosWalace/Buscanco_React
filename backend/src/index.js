@@ -8,10 +8,10 @@ const onibusController = require("./controllers/onibusController");
 const paradaController = require("./controllers/paradaController");
 
 app.get('/users', userController.getUsuarios)
-app.get('/users/:name', userController.getUsuarioByName)
-app.post("/users/", userController.adicionarUsuario);
-app.put("/users/:name", userController.atualizarUsuario);
-app.delete("/users/:name", userController.removerUsuario);
+// app.get('/users/:name', userController.getUsuarioByName)
+// app.post("/users/", userController.adicionarUsuario);
+// app.put("/users/:name", userController.atualizarUsuario);
+// app.delete("/users/:name", userController.removerUsuario);
 
 app.post("/login/", userController.login);
 

@@ -1,11 +1,16 @@
 const express = require("express");
-const sqlite3 = require("sqlite3").verbose();
+const mysql = require("mysql");
 
-const db = new sqlite3.Database("../../database.db");
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "seu_usuario",
+  password: "sua_senha",
+  database: "seu_banco_de_dados",
+});
 
 function getUsuarios() {
   return new Promise((resolve, reject) => {
-    db.all("SELECT * FROM users", (err, rows) => {
+    db.query("SELECT * FROM users", (err, rows) => {
       if (err) {
         console.error(err.message);
         reject("Internal Server Error");
@@ -18,7 +23,7 @@ function getUsuarios() {
 
 function getUsuarioByName(name) {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM user WHERE nome LIKE '%${name}%'`, (err, rows) => {
+    db.query(`SELECT * FROM user WHERE nome LIKE '%${name}%'`, (err, rows) => {
       if (err) {
         console.error(err.message);
         reject("Internal Server Error");
@@ -31,7 +36,7 @@ function getUsuarioByName(name) {
 
 function adicionarUsuario(usuario) {
     return new Promise((resolve, reject) => {
-        db.all(
+        db.query(
           `INSERT INTO user (nome, email, senha, endereco, telefone, local) 
             VALUES ('${usuario.nome}', '${usuario.email}', '${usuario.senha}', '${usuario.endereco}', '${usuario.telefone}', '${usuario.local}')`,
           (err, rows) => {
@@ -48,7 +53,7 @@ function adicionarUsuario(usuario) {
 
 async function atualizarUsuario(name, usuario) {
      return new Promise((resolve, reject) => {
-        db.all(
+        db.query(
             `UPDATE user SET
                     ${usuario.nome ? ` nome = '${usuario.nome}'` : ``}
                     ${usuario.senha ? ` ,senha = '${usuario.senha}'` : ``}
@@ -71,7 +76,7 @@ async function atualizarUsuario(name, usuario) {
 
 async function removerUsuario(name) {
   return new Promise((resolve, reject) => {
-    db.all(`DELETE FROM user WHERE nome = '${name}'`, (err, rows) => {
+    db.query(`DELETE FROM user WHERE nome = '${name}'`, (err, rows) => {
       if (err) {
         console.error(err.message);
         reject("Internal Server Error");
@@ -84,7 +89,7 @@ async function removerUsuario(name) {
 
 async function login(email, senha) {
   return new Promise((resolve, reject) => {
-      db.all(`SELECT * FROM user WHERE nome LIKE '${email}' AND senha LIKE '${senha}'`, (err, rows) => {
+      db.query(`SELECT * FROM user WHERE nome LIKE '${email}' AND senha LIKE '${senha}'`, (err, rows) => {
       if (err) {
         console.error(err.message);
         reject("Internal Server Error");

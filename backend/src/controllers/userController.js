@@ -1,8 +1,19 @@
 const userService = require('../services/userService');
 
 async function getUsuarios(req, res) {
-    const usuarios = await userService.getUsuarios();
-    res.json(usuarios);
+    try {
+        const usuarios = await userService.getUsuarios();
+        console.log('====================================');
+        console.log(usuarios);
+        console.log('====================================');
+        res.json(usuarios);
+        
+    } catch (error) {
+        console.log('====================================');
+        console.log(error);
+        console.log('====================================');
+    }
+
 }
 
 async function getUsuarioByName(req, res) {
