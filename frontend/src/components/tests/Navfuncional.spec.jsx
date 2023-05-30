@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Nav from '../template/Nav';
 
 describe('Nav', () => {
-  it('navega para as paginas corretas ao clicar', () => {
+  it('navega para as paginas corretas ao clicar ', () => {
     render(
       <BrowserRouter>
         <Nav />
