@@ -1,12 +1,12 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite3.Database('database.db');
+const db = new sqlite3.Database('outro');
 
 db.serialize(() => {
 
-  db.run('BEGIN TRANSACTION');
+//   db.run('BEGIN TRANSACTION');
   db.run(`
-    CREATE TABLE user (
+    CREATE TABLE users (
         nome VARCHAR(50) NOT NULL,
         email VARCHAR(50) NOT NULL,
         senha VARCHAR(50) NOT NULL,
@@ -61,12 +61,12 @@ db.serialize(() => {
           ('Aeroporto Internacional', -23.435556, -46.473056, true, '07:00:00', '23:00:00')`
   );
 
-  db.run('COMMIT', (err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Transaction committed successfully');
-    }
-  });
+//   db.run('COMMIT', (err) => {
+//     if (err) {
+//       console.error(err.message);
+//     } else {
+//       console.log('Transaction committed successfully');
+//     }
+//   });
 });
 db.close(); 
